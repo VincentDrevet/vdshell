@@ -19,6 +19,11 @@ If you want to use this shell in embedded device you should compile this program
 
 You should see vdshell executable file in the folder.
 
+## TODO ##
+
+ authentication
+  - auth with sqlite db ?
+
 
 ## Thanks ##
 
