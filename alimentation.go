@@ -1,11 +1,13 @@
 package main
 
 import (
+	"log"
 	"syscall"
 
 	"github.com/abiosoft/ishell"
 )
 
+// AjoutPowerCmd Fonction ajoutant la gestion de l'alimentation
 func AjoutPowerCmd() *ishell.Cmd {
 	powerCmd := &ishell.Cmd{
 		Name:     "powerstate",
@@ -16,7 +18,10 @@ func AjoutPowerCmd() *ishell.Cmd {
 		Name: "halt",
 		Help: "Arrête la carte",
 		Func: func(c *ishell.Context) {
-			syscall.Reboot(syscall.LINUX_REBOOT_CMD_POWER_OFF)
+			err := syscall.Reboot(syscall.LINUX_REBOOT_CMD_POWER_OFF)
+			if err != nil {
+				log.Fatalf("%v", err)
+			}
 		},
 	})
 
@@ -24,10 +29,12 @@ func AjoutPowerCmd() *ishell.Cmd {
 		Name: "reboot",
 		Help: "Redémarre la carte",
 		Func: func(c *ishell.Context) {
-			syscall.Reboot(syscall.LINUX_REBOOT_CMD_RESTART2)
+			err := syscall.Reboot(syscall.LINUX_REBOOT_CMD_RESTART)
+			if err != nil {
+				log.Fatalf("%v", err)
+			}
 		},
 	})
 
 	return powerCmd
-
 }

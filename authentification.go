@@ -2,6 +2,7 @@ package main
 
 import "github.com/abiosoft/ishell"
 
+// AjoutAuthentification Ajoutant la gestion de l'authentification pour l'acces administrateur
 func AjoutAuthentification() *ishell.Cmd {
 
 	authCmd := &ishell.Cmd{
@@ -24,7 +25,7 @@ func AjoutAuthentification() *ishell.Cmd {
 					typeshell:    Administrateur,
 					message:      "Entrer dans le mode administrateur",
 					precommandes: c.Cmds(),
-					commandes:    []*ishell.Cmd{AjoutFSCommande(), AjoutPowerCmd()},
+					commandes:    []*ishell.Cmd{AjoutFSCommande(), AjoutPowerCmd(), AddServiceCmd()},
 				}
 				adminshell := NouveauShell(sh)
 				adminshell.Run()

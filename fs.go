@@ -10,6 +10,7 @@ import (
 	"github.com/abiosoft/ishell"
 )
 
+// AjoutFSCommande Fonction ajoutant la gestion de FS
 func AjoutFSCommande() *ishell.Cmd {
 	FsCmd := &ishell.Cmd{
 		Name:     "fs",

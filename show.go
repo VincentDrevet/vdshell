@@ -15,6 +15,7 @@ import (
 	"github.com/shirou/gopsutil/net"
 )
 
+// AjoutShowCommande ajoutant les commandes show
 func AjoutShowCommande() *ishell.Cmd {
 	showCmd := &ishell.Cmd{
 		Name:     "show",
@@ -90,7 +91,7 @@ func AjoutShowCommande() *ishell.Cmd {
 			for _, disk := range block.Disks {
 				var partitions []string
 				for _, partition := range disk.Partitions {
-					partitions = append(partitions, partition.Name)
+					partitions = append(partitions, partition.Name+" ["+partition.Type+"]")
 				}
 				donnees = append(donnees, []string{disk.Name, disk.Vendor, disk.Model, disk.SerialNumber, disk.StorageController.String(), strings.Join(partitions, " ")})
 			}
