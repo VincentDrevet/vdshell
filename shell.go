@@ -1,6 +1,11 @@
 package main
 
-import "github.com/abiosoft/ishell"
+import (
+	"log"
+
+	"github.com/abiosoft/ishell"
+	"github.com/shirou/gopsutil/host"
+)
 
 type TypeShell int
 
@@ -17,13 +22,16 @@ type Shell struct {
 }
 
 func NouveauShell(shell Shell) *ishell.Shell {
-
+	Hostinfo, err := host.Info()
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
 	var nvshell *ishell.Shell
 	switch shell.typeshell {
 	case Restreint:
 		sh := ishell.New()
 		sh.Println(shell.message)
-		sh.SetPrompt("Mode restreint> ")
+		sh.SetPrompt("[" + Hostinfo.Hostname + "] - $> ")
 		for _, commande := range shell.commandes {
 			sh.AddCmd(commande)
 		}
@@ -32,9 +40,10 @@ func NouveauShell(shell Shell) *ishell.Shell {
 	case Administrateur:
 		shelladmin := ishell.New()
 		shelladmin.Println(shell.message)
-		shelladmin.SetPrompt("Mode administrateur> ")
+		shelladmin.SetPrompt("[" + Hostinfo.Hostname + "] - #> ")
 		// Chargement commande hérité
 		for _, precommande := range shell.precommandes {
+			// Moins la commande connexion qui n'est pas nécessaire en privilège élevé
 			if precommande.Name != "connexion" {
 				shelladmin.AddCmd(precommande)
 			}

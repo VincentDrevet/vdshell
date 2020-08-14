@@ -15,7 +15,7 @@ func AjoutAuthentification() *ishell.Cmd {
 			c.Print("Utilisateur : ")
 			utilisateur := c.ReadLine()
 
-			c.Print("Mot de passe")
+			c.Print("Mot de passe : ")
 			motdepasse := c.ReadPassword()
 
 			if utilisateur == "admin" && motdepasse == "admin" {
