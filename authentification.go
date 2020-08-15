@@ -25,7 +25,7 @@ func AjoutAuthentification() *ishell.Cmd {
 					typeshell:    Administrateur,
 					message:      "Entrer dans le mode administrateur",
 					precommandes: c.Cmds(),
-					commandes:    []*ishell.Cmd{AjoutFSCommande(), AjoutPowerCmd(), AddServiceCmd()},
+					commandes:    []*ishell.Cmd{AjoutFSCommande(), AjoutPowerCmd(), AddServiceCmd(), Ajoutsh()},
 				}
 				adminshell := NouveauShell(sh)
 				adminshell.Run()
