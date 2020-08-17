@@ -4,8 +4,11 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"syscall"
+
+	"github.com/jaypipes/ghw"
 
 	"github.com/abiosoft/ishell"
 )
@@ -22,9 +25,35 @@ func AjoutFSCommande() *ishell.Cmd {
 		Name: "mount",
 		Help: "Active le périphérique distant sur la plateforme",
 		Func: func(c *ishell.Context) {
-			err := syscall.Mount("/dev/"+c.Args[0], "/mnt", "vfat", syscall.MS_NOEXEC, "")
+			block, err := ghw.Block()
 			if err != nil {
-				log.Fatalf("%v\n", err)
+				log.Fatalf("%v", err)
+			}
+			// On parse l'entré de l'utilisateur
+			re := regexp.MustCompile("^[a-z]+")
+			match := re.FindStringSubmatch(c.Args[0])
+
+			var retour bool = false
+
+			for _, disk := range block.Disks {
+				if match[0] == disk.Name {
+					// On itère sur les partitions du disque
+					for _, partition := range disk.Partitions {
+						if partition.Name == c.Args[0] {
+							// On vérifie le système de fichier
+							if partition.Type == "vfat" {
+								err := syscall.Mount("/dev/"+c.Args[0], "/mnt", "vfat", syscall.MS_NOEXEC, "")
+								if err != nil {
+									log.Fatalf("%v\n", err)
+								}
+								retour = true
+							}
+						}
+					}
+				}
+			}
+			if retour == false {
+				log.Fatalln("Erreur lors du chargement du périphérique, le périphérique est il formaté en fat32 ?, la partition existe t-elle ?")
 			}
 		},
 	})
