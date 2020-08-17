@@ -2,7 +2,7 @@
 small shell for embedded device
 
 
-
+![alt text](https://github.com/VincentDrevet/vdshell/blob/master/demo/screenshot.png "screenshot vdshell")
 
 ## requirements ##
 ```
