@@ -1,6 +1,9 @@
 # vdshell
 small shell for embedded device
 
+
+
+
 ## requirements ##
 ```
 go get github.com/abiosoft/ishell
@@ -23,6 +26,8 @@ You should see vdshell executable file in the folder.
 
  authentication
   - auth with sqlite db ?
+  - checksum update firmware ?
+  - logging ?
 
 
 ## Thanks ##
