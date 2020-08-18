@@ -1,6 +1,12 @@
 package main
 
-import "github.com/abiosoft/ishell"
+import (
+	"log"
+
+	"golang.org/x/crypto/bcrypt"
+
+	"github.com/abiosoft/ishell"
+)
 
 // AjoutAuthentification Ajoutant la gestion de l'authentification pour l'acces administrateur
 func AjoutAuthentification() *ishell.Cmd {
@@ -19,7 +25,22 @@ func AjoutAuthentification() *ishell.Cmd {
 			c.Print("Mot de passe : ")
 			motdepasse := c.ReadPassword()
 
-			if utilisateur == "admin" && motdepasse == "admin" {
+			/*if utilisateur == "admin" && motdepasse == "admin" {
+
+
+			}*/
+
+			bdd := ConnexionBDD("./central.db")
+			mdpbase := Recuperationmotdepasse(bdd, utilisateur)
+
+			// si le mot de passe est vide alors l'utilisateur n'existe pas
+			if mdpbase == "" {
+				log.Fatalln("Utilisateur inconnu")
+				return
+			}
+
+			// On vérifie le hash en base avec le mot de passe fournie par l'utilisateur
+			if bcrypt.CompareHashAndPassword([]byte(mdpbase), []byte(motdepasse)) == nil {
 				c.Println("Acces autorisé")
 				sh := Shell{
 					typeshell:    Administrateur,
@@ -29,9 +50,7 @@ func AjoutAuthentification() *ishell.Cmd {
 				}
 				adminshell := NouveauShell(sh)
 				adminshell.Run()
-
 			}
-
 		},
 	}
 

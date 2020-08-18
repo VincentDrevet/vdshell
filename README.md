@@ -10,6 +10,7 @@ go get github.com/abiosoft/ishell
 go get github.com/jaypipes/ghw
 go get github.com/shirou/gopsutil
 go get github.com/olekukonko/tablewriter
+go get github.com/mattn/go-sqlite3
 ```
 
 ## Build ##
@@ -40,3 +41,5 @@ aypipes for ghw library
 shirou for gopsutil library
 
 olekukonko for tablewriter library
+
+ mattn go-sqlite3 library
