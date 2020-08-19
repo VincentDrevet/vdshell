@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"strconv"
 	"strings"
 
@@ -36,7 +35,7 @@ func AjoutShowCommande() *ishell.Cmd {
 		Func: func(c *ishell.Context) {
 			uptime, err := host.Uptime()
 			if err != nil {
-				log.Println(err)
+				fmt.Printf("%v", err)
 				return
 			}
 			var uptimeh float64 = float64(uptime) / float64(3600)
@@ -50,7 +49,7 @@ func AjoutShowCommande() *ishell.Cmd {
 			titre := []string{"Hostname", "Nombre de processus", "OS", "Plateforme", "Famille de plateforme", "Version de la plateforme", "Version du noyau", "Architecture", "UUID"}
 			Hostinfo, err := host.Info()
 			if err != nil {
-				log.Println(err)
+				fmt.Printf("%v", err)
 			}
 			donnees := [][]string{[]string{Hostinfo.Hostname, strconv.FormatUint(Hostinfo.Procs, 10), Hostinfo.OS, Hostinfo.Platform, Hostinfo.PlatformFamily, Hostinfo.PlatformVersion, Hostinfo.KernelVersion, Hostinfo.KernelArch, Hostinfo.HostID}}
 
@@ -65,13 +64,13 @@ func AjoutShowCommande() *ishell.Cmd {
 			var donnees [][]string
 			partitions, err := disk.Partitions(true)
 			if err != nil {
-				log.Printf("%v", err)
+				fmt.Printf("%v", err)
 				return
 			}
 			for _, partition := range partitions {
 				usage, err := disk.Usage(partition.Mountpoint)
 				if err != nil {
-					log.Printf("%v", err)
+					fmt.Printf("%v", err)
 				}
 				donnees = append(donnees, []string{usage.Path, usage.Fstype, partition.Opts, partition.Device, strconv.FormatUint(usage.Total, 10), strconv.FormatUint(usage.Used, 10), fmt.Sprintf("%f", usage.UsedPercent)})
 			}
@@ -86,7 +85,7 @@ func AjoutShowCommande() *ishell.Cmd {
 			var donnees [][]string
 			block, err := ghw.Block()
 			if err != nil {
-				log.Fatal(err)
+				fmt.Printf("%v", err)
 			}
 			for _, disk := range block.Disks {
 				var partitions []string
@@ -104,12 +103,12 @@ func AjoutShowCommande() *ishell.Cmd {
 		Func: func(c *ishell.Context) {
 			swapinfo, err := mem.SwapMemory()
 			if err != nil {
-				log.Printf("%v", err)
+				fmt.Printf("%v", err)
 				return
 			}
 			meminfo, err := mem.VirtualMemory()
 			if err != nil {
-				log.Printf("%v", err)
+				fmt.Printf("%v", err)
 				return
 			}
 
@@ -141,7 +140,7 @@ func AjoutShowCommande() *ishell.Cmd {
 			var adresses []string
 			interfaces, err := net.Interfaces()
 			if err != nil {
-				log.Printf("%v", err)
+				fmt.Printf("%v", err)
 				return
 			}
 			for _, netinterface := range interfaces {
@@ -162,7 +161,7 @@ func AjoutShowCommande() *ishell.Cmd {
 			titres := []string{"Adresse Local", "Port Local", "Adresse Distante", "Port Distant", "Status"}
 			var donnees [][]string
 			if err != nil {
-				log.Printf("%v", err)
+				fmt.Printf("%v", err)
 				return
 			}
 			for _, connexion := range connexions {

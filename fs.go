@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -27,7 +27,7 @@ func AjoutFSCommande() *ishell.Cmd {
 		Func: func(c *ishell.Context) {
 			block, err := ghw.Block()
 			if err != nil {
-				log.Fatalf("%v", err)
+				fmt.Printf("%v", err)
 			}
 			// On parse l'entré de l'utilisateur
 			re := regexp.MustCompile("^[a-z]+")
@@ -44,7 +44,7 @@ func AjoutFSCommande() *ishell.Cmd {
 							if partition.Type == "vfat" {
 								err := syscall.Mount("/dev/"+c.Args[0], "/mnt", "vfat", syscall.MS_NOEXEC, "")
 								if err != nil {
-									log.Fatalf("%v\n", err)
+									fmt.Printf("%v", err)
 								}
 								retour = true
 							}
@@ -53,7 +53,7 @@ func AjoutFSCommande() *ishell.Cmd {
 				}
 			}
 			if retour == false {
-				log.Fatalln("Erreur lors du chargement du périphérique, le périphérique est il formaté en fat32 ?, la partition existe t-elle ?")
+				fmt.Println("Erreur lors du chargement du périphérique, le périphérique est il formaté en fat32 ?, la partition existe t-elle ?")
 			}
 		},
 	})
@@ -63,7 +63,7 @@ func AjoutFSCommande() *ishell.Cmd {
 		Func: func(c *ishell.Context) {
 			err := syscall.Unmount("/mnt", syscall.MNT_FORCE)
 			if err != nil {
-				log.Fatalf("%v", err)
+				fmt.Printf("%v", err)
 			}
 		},
 	})
@@ -79,7 +79,7 @@ func AjoutFSCommande() *ishell.Cmd {
 				return nil
 			})
 			if err != nil {
-				log.Fatalf("%v", err)
+				fmt.Printf("%v", err)
 			}
 			dessinertableau(titre, donnees)
 

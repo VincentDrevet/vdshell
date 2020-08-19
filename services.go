@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"os/exec"
 
 	"github.com/abiosoft/ishell"
@@ -28,7 +28,7 @@ func AddServiceCmd() *ishell.Cmd {
 			cmd := exec.Command("/etc/init.d/S50sshd", "start")
 			output, err := cmd.Output()
 			if err != nil {
-				log.Fatalf("%v", output)
+				fmt.Printf("%v", output)
 			}
 			c.Printf("%s", output)
 		},
@@ -41,7 +41,7 @@ func AddServiceCmd() *ishell.Cmd {
 			cmd := exec.Command("/etc/init.d/S50sshd", "stop")
 			output, err := cmd.Output()
 			if err != nil {
-				log.Fatalf("%v", output)
+				fmt.Printf("%v", output)
 			}
 			c.Printf("%s", output)
 		},

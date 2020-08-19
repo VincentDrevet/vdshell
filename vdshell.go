@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"os"
 	"os/exec"
 
@@ -15,7 +15,7 @@ func main() {
 	cmd.Stdin = os.Stdin
 	_, err := cmd.Output()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Printf("%v", err)
 	}
 
 	shelldemarrage := Shell{

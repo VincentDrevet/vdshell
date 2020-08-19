@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/abiosoft/ishell"
 	"github.com/shirou/gopsutil/host"
@@ -29,7 +29,7 @@ type Shell struct {
 func NouveauShell(shell Shell) *ishell.Shell {
 	Hostinfo, err := host.Info()
 	if err != nil {
-		log.Fatalf("%v", err)
+		fmt.Printf("%v", err)
 	}
 	var nvshell *ishell.Shell
 	switch shell.typeshell {

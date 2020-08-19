@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"os"
 	"os/exec"
 
@@ -21,7 +21,7 @@ func Ajoutsh() *ishell.Cmd {
 			cmd.Stderr = os.Stderr
 			err := cmd.Run()
 			if err != nil {
-				log.Fatalf("%v", err)
+				fmt.Printf("%v", err)
 			}
 		},
 	}

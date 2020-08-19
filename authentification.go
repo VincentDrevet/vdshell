@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"golang.org/x/crypto/bcrypt"
 
@@ -35,7 +35,7 @@ func AjoutAuthentification() *ishell.Cmd {
 
 			// si le mot de passe est vide alors l'utilisateur n'existe pas
 			if mdpbase == "" {
-				log.Fatalln("Utilisateur inconnu")
+				fmt.Println("Utilisateur inconnu")
 				return
 			}
 

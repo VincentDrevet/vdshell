@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"syscall"
 
 	"github.com/abiosoft/ishell"
@@ -20,7 +20,7 @@ func AjoutPowerCmd() *ishell.Cmd {
 		Func: func(c *ishell.Context) {
 			err := syscall.Reboot(syscall.LINUX_REBOOT_CMD_POWER_OFF)
 			if err != nil {
-				log.Fatalf("%v", err)
+				fmt.Printf("%v", err)
 			}
 		},
 	})
@@ -31,7 +31,7 @@ func AjoutPowerCmd() *ishell.Cmd {
 		Func: func(c *ishell.Context) {
 			err := syscall.Reboot(syscall.LINUX_REBOOT_CMD_RESTART)
 			if err != nil {
-				log.Fatalf("%v", err)
+				fmt.Printf("%v", err)
 			}
 		},
 	})
