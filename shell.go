@@ -49,7 +49,7 @@ func NouveauShell(shell Shell) *ishell.Shell {
 		// Chargement commande hérité
 		for _, precommande := range shell.precommandes {
 			// Moins la commande connexion qui n'est pas nécessaire en privilège élevé
-			if precommande.Name != "connexion" {
+			if precommande.Name != "enable" {
 				shelladmin.AddCmd(precommande)
 			}
 		}

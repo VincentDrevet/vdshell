@@ -11,7 +11,7 @@ fi
 if [ $1 = "x86_64" ]
 then    
     # Compilation x86_64
-    go build -ldflags "-linkmode external -extldflags -static" -a vdshell.go show.go authentification.go shell.go display.go fs.go alimentation.go services.go bash.go sqlmanage.go
+    go build -ldflags "-linkmode external -extldflags -static" -a vdshell.go show.go authentification.go shell.go display.go fs.go alimentation.go services.go bash.go sqlmanage.go user.go pwmanage.go
 fi
 
 if [ $1 = "arm" ]

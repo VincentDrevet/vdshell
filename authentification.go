@@ -12,9 +12,9 @@ import (
 func AjoutAuthentification() *ishell.Cmd {
 
 	authCmd := &ishell.Cmd{
-		Name:     "connexion",
+		Name:     "enable",
 		Help:     "Permet de s'authentifier pour accéder au mode privilégié",
-		LongHelp: `Syntaxe : connexion`,
+		LongHelp: `Syntaxe : enable`,
 		Func: func(c *ishell.Context) {
 			c.ShowPrompt(false)
 			defer c.ShowPrompt(true)
@@ -24,11 +24,6 @@ func AjoutAuthentification() *ishell.Cmd {
 
 			c.Print("Mot de passe : ")
 			motdepasse := c.ReadPassword()
-
-			/*if utilisateur == "admin" && motdepasse == "admin" {
-
-
-			}*/
 
 			bdd := ConnexionBDD("./central.db")
 			mdpbase := Recuperationmotdepasse(bdd, utilisateur)
@@ -46,8 +41,9 @@ func AjoutAuthentification() *ishell.Cmd {
 					typeshell:    Administrateur,
 					message:      "Entrer dans le mode administrateur",
 					precommandes: c.Cmds(),
-					commandes:    []*ishell.Cmd{AjoutFSCommande(), AjoutPowerCmd(), AddServiceCmd(), Ajoutsh()},
+					commandes:    []*ishell.Cmd{AjoutFSCommande(), AjoutPowerCmd(), AddServiceCmd(), Ajoutsh(), AjoutUserCommande()},
 				}
+				bdd.Close()
 				adminshell := NouveauShell(sh)
 				adminshell.Run()
 			}

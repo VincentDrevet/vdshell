@@ -30,3 +30,14 @@ func Recuperationmotdepasse(bdd *sql.DB, username string) string {
 
 	return password
 }
+
+func ChangementMotdePasse(bdd *sql.DB, hash []byte) {
+	var requete string = "UPDATE user SET password = '" + string(hash) + "' WHERE username = 'admin'"
+
+	stm, err := bdd.Prepare(requete)
+	if err != nil {
+		fmt.Printf("%v", err)
+	}
+	stm.Exec()
+
+}
