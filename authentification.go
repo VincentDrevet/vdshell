@@ -25,7 +25,8 @@ func AjoutAuthentification() *ishell.Cmd {
 			c.Print("Mot de passe : ")
 			motdepasse := c.ReadPassword()
 
-			bdd := ConnexionBDD("./central.db")
+			configuration := ChargerFichierConfiguration("/etc/vdshell/vdshell.ini")
+			bdd := ConnexionBDD(configuration.CheminBDD)
 			mdpbase := Recuperationmotdepasse(bdd, utilisateur)
 
 			// si le mot de passe est vide alors l'utilisateur n'existe pas

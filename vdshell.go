@@ -18,6 +18,10 @@ func main() {
 		fmt.Printf("%v", err)
 	}
 
+	// On vérifie si le fichier de configuration existe ou non
+	if FichierConfigurationExiste("/etc/vdshell/vdshell.ini") != true {
+		os.Exit(1)
+	}
 	shelldemarrage := Shell{
 		typeshell: Restreint,
 		message:   "Acces restreint",

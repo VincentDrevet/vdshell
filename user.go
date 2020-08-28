@@ -33,7 +33,8 @@ func AjoutUserCommande() *ishell.Cmd {
 
 				if nvmdp == confirmmdp {
 					hash := HashPassword([]byte(nvmdp))
-					bdd := ConnexionBDD("./central.db")
+					configuration := ChargerFichierConfiguration("/etc/vdshell/vdshell.ini")
+					bdd := ConnexionBDD(configuration.CheminBDD)
 					ChangementMotdePasse(bdd, hash)
 					c.Print("Mot de passe mis à jour")
 					boucle = false
